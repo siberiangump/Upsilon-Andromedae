@@ -26,7 +26,7 @@ public class dbEntry : MonoBehaviour {
 
 	public savestract get(string id){
 		var map = JSON.Parse(PlayerPrefs.GetString (prefix + "_" + id));
-		return new savestract (map ["name"].Value, map ["body"].Value, map ["id"].Value, map ["time"].Value);
+		return new savestract (map ["name"].Value, map ["body"], map ["id"].Value, map ["time"].Value);
 	}
 
 
@@ -35,6 +35,11 @@ public class dbEntry : MonoBehaviour {
 		AddId (save.id);
 		Debug.Log (save);
 		return save.id;
+	}
+
+	public void save(savestract save){
+		PlayerPrefs.SetString (prefix + "_" + save.id, save.json);
+		Debug.Log (save);
 	}
 
 	void AddId(string id){
@@ -77,14 +82,24 @@ public struct savestract{
 	public string id;
 	public string time;
 	public savestract(string name,string body){
-		id=DateTime.Now.ToString ()+Time.deltaTime+Time.frameCount;
+		id= System.Guid.NewGuid().ToString();
 		time = DateTime.Now.ToString ();
 		n = name;
 		b = body;
 		json = "{ \"name\":\"" + name + "\"," +
 				"\"body\":\"" + body + "\","+
-				"\"time\":\"" + time + "\","+
+				"\"update\":\"" + time + "\","+
 				"\"id\":\"" + id + "\"}";
+	}
+	public savestract(string name,string body,string id){
+		this.id=id;
+		this.time = DateTime.Now.ToString ();
+		n = name;
+		b = body;
+		json = "{ \"name\":\"" + name + "\"," +
+			    "\"body\":\"" + body + "\","+
+				"\"update\":\"" + this.time + "\","+
+				"\"id\":\"" + this.id + "\"}";	
 	}
 	public savestract(string name,string body,string id,string time){
 		this.id=id;
@@ -93,7 +108,7 @@ public struct savestract{
 		b = body;
 		json = "{ \"name\":\"" + name + "\"," +
 				"\"body\":\"" + body + "\","+
-				"\"time\":\"" + this.time + "\","+
+				"\"update\":\"" + this.time + "\","+
 				"\"id\":\"" + this.id + "\"}";	
 	}
 }

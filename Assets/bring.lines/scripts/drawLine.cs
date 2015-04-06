@@ -6,7 +6,8 @@ public class drawLine : MonoBehaviour {
 	public LineType type = LineType.FromTargetToTarget;
 	public Transform from,to;
 	public float lineWight;
-	public Color color;
+	public Color fromColor;
+	public Color toColor;
 	public Material material;
 	public float displasment;
 
@@ -15,10 +16,11 @@ public class drawLine : MonoBehaviour {
 	LineType old_type;
 	Transform old_from,old_to;
 	float old_lineWight;
-	Color old_color;
+	Color old_fromColor,old_toColor;
 	Material old_material;
 
 	public bool dead=false;
+	public GameObject markFrom,markTo; 
 
 	void Start () {
 		lineRenderer = this.gameObject.AddComponent<LineRenderer>();
@@ -41,8 +43,19 @@ public class drawLine : MonoBehaviour {
 
 		material = data.m;
 		from = data.f;
+		markFrom = new GameObject ();
+		markFrom.transform.parent = data.f;
+		markFrom.tag = "mark";
+		markFrom.name = data.t.name;
+
 		to = data.t;
-		color = data.c;
+		markTo = new GameObject ();
+		markTo.transform.parent = data.t;
+		markTo.tag = "mark";
+		markTo.name = data.f.name; 
+
+		fromColor = data.fc;
+		toColor = data.tc;
 		init = true;
 		UpdateOldParametrs ();
 
@@ -51,7 +64,7 @@ public class drawLine : MonoBehaviour {
 	void Draw(){
 		if(type == LineType.FromTargetToTarget){
 
-			lineRenderer.SetColors(color,color);
+			lineRenderer.SetColors(fromColor,toColor);
 			lineRenderer.SetWidth(lineWight, lineWight);
 			lineRenderer.SetVertexCount(2);
 			if(from!=null){
@@ -89,7 +102,8 @@ public class drawLine : MonoBehaviour {
 		old_type=type;
 		old_from = from;
 		old_to = to;
-		old_color = color;
+		old_fromColor = fromColor;
+		old_toColor = toColor;
 		old_material = material;
 	}
 	bool CheckParametrsChanged(){
@@ -101,7 +115,8 @@ public class drawLine : MonoBehaviour {
 		if (old_type != type ||
 		    old_from != from ||
 		    old_to != to ||
-		    old_color != color ||
+		    old_fromColor != fromColor ||
+		    old_toColor != toColor ||
 		    old_material != material)
 			return true;
 		return false;
@@ -114,14 +129,14 @@ public struct LineParametrData{
 	public LineType type;
 	public Transform f,t;
 	public float w;
-	public Color c;
+	public Color fc,tc;
 	public Material m;
 	public LineParametrData(Transform from,Transform to,float wight,Material material){
 		type = LineType.FromTargetToTarget;
 		f = from;
 		t = to;
 		w = wight;
-		c = Color.cyan;
+		fc = tc = Color.cyan;
 		m = material;
 	}
 	public LineParametrData(Transform from,Transform to,float wight,Color color,Material material){
@@ -129,7 +144,7 @@ public struct LineParametrData{
 		f = from;
 		t = to;
 		w = wight;
-		c = color;
+		fc = tc = color;
 		m = material;
 	}
 	public LineParametrData(Transform from,Transform to,float wight,Color color){
@@ -137,7 +152,16 @@ public struct LineParametrData{
 		f = from;
 		t = to;
 		w = wight;
-		c = color;
+		fc = tc = color;
+		m = new Material(Shader.Find("Particles/Additive"));
+	}
+	public LineParametrData(Transform from,Transform to,float wight,Color fromColor,Color toColor){
+		type = LineType.FromTargetToTarget;
+		f = from;
+		t = to;
+		w = wight;
+		fc = fromColor;
+		tc = toColor;
 		m = new Material(Shader.Find("Particles/Additive"));
 	}
 	public LineParametrData(Transform from,Transform to,float wight){
@@ -145,7 +169,7 @@ public struct LineParametrData{
 		f = from;
 		t = to;
 		w = wight;
-		c = Color.gray;
+		fc = tc = Color.gray;
 		m = new Material(Shader.Find("Particles/Additive"));
 	}
 	public LineParametrData(Transform from,Transform to){
@@ -153,7 +177,7 @@ public struct LineParametrData{
 		f = from;
 		t = to;
 		w = 0.1f;
-		c = Color.gray;
+		fc = tc = Color.gray;
 		m = new Material(Shader.Find("Particles/Additive"));
 	}
 }

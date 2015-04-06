@@ -11,10 +11,15 @@ public class ChangeLineTarget : MonoBehaviour {
 				if (gmo) {
 					this.GetComponent<drawLine> ().to = gmo.transform;
 					GameObject.Destroy (this);
-				} else
+				} else {
 					GameObject.Destroy (this.gameObject);
-				if(this.GetComponent<drawLine> ().from==gmo.transform)GameObject.Destroy (this.gameObject);
+				}
+				if(this.GetComponent<drawLine> ().from==gmo.transform){
+					GameObject.Destroy (this.gameObject);
+				}
+				Destroy(this);
 			} else double_click=true;
 		}
+
 	}
 }

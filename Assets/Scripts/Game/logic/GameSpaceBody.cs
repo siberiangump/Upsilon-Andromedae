@@ -5,6 +5,12 @@ public class GameSpaceBody : SpaceBodyModel {
 
 	public int units = 0; 
 	public GameObject UI;
+	public Player owner = null; 
+	public float cooldown ;
+
+	float cdNoOwner = 2;
+	float cdHaveOwner= 1;
+
 	// Use this for initialization
 	void Awake () {
 
@@ -15,21 +21,26 @@ public class GameSpaceBody : SpaceBodyModel {
 		GameObject ui = Instantiate (UI, this.transform.position, Quaternion.identity) as GameObject;
 		ui.transform.parent = this.transform;
 		ui.transform.Rotate (new Vector3 (0, 180, 0));
-		StartCoroutine(RunGainer());
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		if(owner){
+			cooldown = cdHaveOwner;
+		}else cooldown = cdNoOwner;
 	}
 
-	IEnumerator RunGainer () {
-		while (true) {
-			yield return new WaitForSeconds (1);
-			Debug.Log ("asd");
+	// Update is called once per frame
+	void Update () {
+		Gainer ();
+	}
+	
+
+	void Gainer () {
+		cooldown -= Time.deltaTime;
+		if (cooldown<0){
 			units += development;
 			if (units > capability)
 				units = capability;
+			if(owner){
+				cooldown = cdHaveOwner;
+			}else cooldown = cdNoOwner;
 		}
 	}
 

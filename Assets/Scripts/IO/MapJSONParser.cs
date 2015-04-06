@@ -4,6 +4,13 @@ using System.Collections;
 
 public class MapJSONParser : MonoBehaviour {
 
+	public EditorFlagCamp flagCamp;
+
+	public GameObject linePrefab;
+
+	public Component[] SpawnComponents;
+	public GameObject[] SpawnChilds;
+
 	public void LoadMap(string json){
 		var map = JSON.Parse(json);
 		var nodes = map["bodies"]; //access object member
@@ -14,16 +21,24 @@ public class MapJSONParser : MonoBehaviour {
 			float y = node["position"]["y"].AsFloat;
 			float z = node["position"]["z"].AsFloat;
 
-			GameObject NODE=(GameObject) Instantiate(Resources.Load("Prefabs/planets"+node["prefab"].Value));
+			GameObject NODE=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
 			NODE.transform.position=new Vector3(x,y,z);
 			NODE.name = node["name"].Value;
+
+			foreach (GameObject c in SpawnChilds) {
+				GameObject g = Instantiate (c,NODE.transform.position,Quaternion.identity)as GameObject;
+				g.transform.parent = NODE.transform;
+				g.GetComponent<RectTransform>().Rotate(0,180,0);
+			}
 
 		}
 		
 		var transitions = map["transitions"]; //access object member
 		foreach (var transition in transitions.Childs){
-			GameObject t = GameObject.Find(transition["from"]).GetComponent<EditorSpaceBody>().CreateConnection(transition["name"].Value);
-			t.GetComponent<LineHolder>().FixTarget(GameObject.Find(transition["to"]));
+			GameObject f =GameObject.Find(transition["from"]);
+			GameObject t =GameObject.Find(transition["to"]);
+			GameObject l = Instantiate(linePrefab,f.transform.position,Quaternion.identity) as GameObject;
+			l.GetComponent<drawLine>().Init(new LineParametrData(f.transform,t.transform));
 		}
 		
 	}

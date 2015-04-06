@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SaveFinder : MonoBehaviour {
 
-	public dbEntry dbProxy;
+/*	public dbEntry dbProxy;
 	public GameObject prefab;
 	public int displacement;
 	public GameObject[] gmos;
@@ -11,7 +11,7 @@ public class SaveFinder : MonoBehaviour {
 	void Start() {
 
 		Vector2 t = this.GetComponent<RectTransform> ().sizeDelta;
-		string[] ids = dbProxy.getIdList ();
+//		string[] ids = dbProxy.getIdList ();
 		this.GetComponent<RectTransform> ().sizeDelta=new Vector2(t.x,(ids.Length) * displacement);
 		t = this.GetComponent<RectTransform> ().sizeDelta;
 		for(int i=0;i<ids.Length;i++) {
@@ -28,6 +28,6 @@ public class SaveFinder : MonoBehaviour {
 			}
 		}
 		
-	} 
+	} */
 
 }

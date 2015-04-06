@@ -23,6 +23,8 @@ public class PrefabSpawn : ObjectPreview {
 
 	public void InstantietePrefab() {
 		GameObject gmo = Instantiate (prefab)as GameObject;
+		gmo.name = NameGenerator.gen_name ();
+
 		mh.target = gmo;
 
 		gmo.GetComponent<ObjectPreview> ().prefab_name = this.prefab.name;

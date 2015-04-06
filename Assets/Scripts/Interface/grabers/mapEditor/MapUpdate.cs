@@ -6,7 +6,7 @@ public class MapUpdate : TextGraber {
 	public override void Grab ()
 	{
 		if (gmo.GetComponent<EditorMain> ()) {
-			text.text = gmo.GetComponent<EditorMain> ().mapUpdate;
+			text.text = gmo.GetComponent<EditorFlagCamp> ().lastSave;
 		}
 	}
 }

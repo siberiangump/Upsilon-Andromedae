@@ -5,7 +5,7 @@ public class ObjectPreview : SpaceBodyModel {
 
 	public Sprite image;
 	public string name;
-	[HideInInspector]
+//[HideInInspector]
 	public string prefab_name;
 	public string description;
 
