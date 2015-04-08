@@ -5,7 +5,7 @@ public class GameSpaceBody : SpaceBodyModel {
 
 	public int units = 0; 
 	public GameObject UI;
-	public Player owner = null; 
+	public PlayerModel owner = null; 
 	public float cooldown ;
 
 	float cdNoOwner = 2;

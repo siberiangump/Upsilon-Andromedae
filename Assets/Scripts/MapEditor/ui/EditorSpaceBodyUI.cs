@@ -9,11 +9,21 @@ public class EditorSpaceBodyUI : MonoBehaviour {
 	public GameObject linePrefab;
 	public Text uiname;
 	public GameObject panel;
+	public Text devepopment;
+	public Text capability;
+	public Text playerId;
+
+	public ObjectPreview spaceBody;
+
 
 	void Start(){
 		if (!this.transform.parent) {
 			DestroyImmediate (this.gameObject);		
 		} else {
+			spaceBody = this.transform.parent.gameObject.GetComponent<ObjectPreview>();
+			UpdatePlayer();
+			UpdateDevelopnet();
+			UpdateCapability();
 			if (uiname)
 				uiname.text = this.transform.parent.gameObject.name;
 		}
@@ -70,8 +80,52 @@ public class EditorSpaceBodyUI : MonoBehaviour {
 	public MouseHolder FindMouseHolder(){
 		return GameObject.Find ("Main Camera").GetComponent<MouseHolder>();
 	}
+	
+	//capability
+	public void IncreaseCapability(){
+		spaceBody.capability+=10;
+		UpdateCapability();
+	}
+	public void DecreaseCapability(){
+		spaceBody.capability-=10;
+		if(spaceBody.capability<0){
+			spaceBody.capability=0;
+		}
+		UpdateCapability();
+	}
+	void UpdateCapability(){
+		capability.text = spaceBody.capability + "";
+	}
 
+	//playerId
+	public void IncreasePlayer(){
+		spaceBody.playerId+=1;
+		UpdatePlayer();
+	}
+	public void DecreasePlayer(){
+		spaceBody.playerId-=1;
+		if(spaceBody.playerId<0){
+			spaceBody.playerId=0;
+		}
+		UpdatePlayer();
+	}
+	void UpdatePlayer(){
+		if(spaceBody.playerId>0){
+			playerId.text = spaceBody.playerId + "";
+		}else playerId.text = "*";
+	}
 
-
+	//development
+	public void IncreaseDevelopment(){
+		spaceBody.development+=1;
+		UpdateDevelopnet();
+	}
+	public void DecreaseDevelopment(){
+		spaceBody.development-=1;
+		UpdateDevelopnet();
+	}
+	void UpdateDevelopnet(){
+		devepopment.text = spaceBody.development + "";
+	}
 
 }

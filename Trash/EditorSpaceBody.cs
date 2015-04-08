@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EditorSpaceBody : MonoBehaviour {
+public class EditorSpaceBody : SpaceBodyModel {
 
 	public GameObject nameText;
 
