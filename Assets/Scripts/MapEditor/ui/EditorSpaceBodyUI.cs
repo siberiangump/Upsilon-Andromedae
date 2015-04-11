@@ -26,6 +26,7 @@ public class EditorSpaceBodyUI : MonoBehaviour {
 			UpdateCapability();
 			if (uiname)
 				uiname.text = this.transform.parent.gameObject.name;
+			panel.SetActive(false);
 		}
 	} 
 

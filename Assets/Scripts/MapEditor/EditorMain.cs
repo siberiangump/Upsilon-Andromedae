@@ -30,7 +30,6 @@ public class EditorMain : MonoBehaviour {
 	}
 		
 	public void LoadMap(){
-		Clean ();
 		this.GetComponent<IO> ().Load ();
 	}
 
@@ -41,19 +40,7 @@ public class EditorMain : MonoBehaviour {
 		PlayerPrefs.SetString (PrefsDefine.editor + PrefsDefine.last_map,flagCamp.mapId);
 	} 
 	
-	public void Clean(){
 
-		GameObject[] fan =  GameObject.FindGameObjectsWithTag("space_body");
-		foreach (GameObject nd in fan) {
-			DestroyImmediate(nd);
-		}
-
-		GameObject[] transitions =  GameObject.FindGameObjectsWithTag("transition");
-		foreach (GameObject trns in transitions) {
-			DestroyImmediate(trns);	
-		}
-
-	}
 
 
 	// Update is called once per frame

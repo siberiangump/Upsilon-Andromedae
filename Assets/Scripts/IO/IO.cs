@@ -36,6 +36,7 @@ public class IO : MonoBehaviour {
 
 	[ContextMenu ("Load")]
 	public void Load(){
+		Clean();
 		MapJSONParser parser = this.gameObject.GetComponent<MapJSONParser> ();
 		if (parser == null) {
 			parser = this.gameObject.AddComponent<MapJSONParser> ();
@@ -43,9 +44,23 @@ public class IO : MonoBehaviour {
 		string save = dbProxy.get (main.mapId);
 		var m = JSON.Parse(save);
 		main.mapName = m["name"].Value;
-		save_name.text = m["body"].Value;
+		save_name.text = m["name"].Value;
 		main.lastSave = m["update"].Value;
 
 		parser.LoadMap (m["body"].Value);
+	}
+
+	public void Clean(){
+		
+		GameObject[] fan =  GameObject.FindGameObjectsWithTag("space_body");
+		foreach (GameObject nd in fan) {
+			DestroyImmediate(nd);
+		}
+		
+		GameObject[] transitions =  GameObject.FindGameObjectsWithTag("transition");
+		foreach (GameObject trns in transitions) {
+			DestroyImmediate(trns);	
+		}
+		
 	}
 }

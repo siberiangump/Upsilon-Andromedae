@@ -24,6 +24,9 @@ public class MapJSONParser : MonoBehaviour {
 			GameObject NODE=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
 			NODE.transform.position=new Vector3(x,y,z);
 			NODE.name = node["name"].Value;
+			NODE.GetComponent<ObjectPreview>().capability = node["capability"].AsInt;
+			NODE.GetComponent<ObjectPreview>().development = node["development"].AsInt;
+			NODE.GetComponent<ObjectPreview>().playerId = node["playerId"].AsInt;
 
 			foreach (GameObject c in SpawnChilds) {
 				GameObject g = Instantiate (c,NODE.transform.position,Quaternion.identity)as GameObject;

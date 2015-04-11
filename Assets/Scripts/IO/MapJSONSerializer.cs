@@ -16,6 +16,7 @@ public static class MapJSONSerializer{
 				"\"prefab\":\""+nd.GetComponent<ObjectPreview>().prefab_name+"\"," +
 				"\"development\":\""+nd.GetComponent<ObjectPreview>().development+"\"," +
 				"\"capability\":\""+nd.GetComponent<ObjectPreview>().capability+"\"," +
+				"\"playerId\":\""+nd.GetComponent<ObjectPreview>().playerId+"\"," +
 				"\"position\":{\"x\":" + nd.transform.position.x +"," +
 							  "\"y\":"+nd.transform.position.y+"," +
 							  "\"z\":"+nd.transform.position.z+"}},";
