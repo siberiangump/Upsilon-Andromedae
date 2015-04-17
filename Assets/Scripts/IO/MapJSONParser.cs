@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using SimpleJSON;
 using System.Collections;
 
 public class MapJSONParser : MonoBehaviour {
 
+	public pars_type type;
+
 	public EditorFlagCamp flagCamp;
 
 	public GameObject linePrefab;
-
-	public Component[] SpawnComponents;
+	
 	public GameObject[] SpawnChilds;
 
 	public void LoadMap(string json){
@@ -28,6 +29,17 @@ public class MapJSONParser : MonoBehaviour {
 			NODE.GetComponent<ObjectPreview>().development = node["development"].AsInt;
 			NODE.GetComponent<ObjectPreview>().playerId = node["playerId"].AsInt;
 
+			if(type == pars_type.game) {
+				NODE.AddComponent<GameSpaceBody>();
+				if(NODE.GetComponent<ObjectPreview>().playerId!=0){
+					if(PlayerAreExist(NODE.GetComponent<ObjectPreview>().playerId)){
+						GameObject player = new GameObject();
+						player.tag = "Player";
+						player.AddComponent<Player>().playerId = NODE.GetComponent<ObjectPreview>().playerId;
+					}
+				}
+			}
+
 			foreach (GameObject c in SpawnChilds) {
 				GameObject g = Instantiate (c,NODE.transform.position,Quaternion.identity)as GameObject;
 				g.transform.parent = NODE.transform;
@@ -46,4 +58,19 @@ public class MapJSONParser : MonoBehaviour {
 		
 	}
 
+	bool PlayerAreExist(int playerId){
+		bool needNewPlayer = true;
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach(GameObject gmo in players){
+			Player player = gmo.GetComponent<Player>();
+			if(player && player.playerId == playerId){
+				needNewPlayer = false;
+			}
+		}
+		return needNewPlayer;
+	}
+
+	public enum pars_type {game,editor};
 }
+
+

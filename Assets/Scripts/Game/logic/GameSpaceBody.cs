@@ -18,9 +18,6 @@ public class GameSpaceBody : SpaceBodyModel {
 		this.capability = op.capability;
 		this.development = op.development;
 		Destroy (op);
-		GameObject ui = Instantiate (UI, this.transform.position, Quaternion.identity) as GameObject;
-		ui.transform.parent = this.transform;
-		ui.transform.Rotate (new Vector3 (0, 180, 0));
 		if(owner){
 			cooldown = cdHaveOwner;
 		}else cooldown = cdNoOwner;

@@ -44,7 +44,7 @@ public class IO : MonoBehaviour {
 		string save = dbProxy.get (main.mapId);
 		var m = JSON.Parse(save);
 		main.mapName = m["name"].Value;
-		save_name.text = m["name"].Value;
+		if(save_name){save_name.text = m["name"].Value;}
 		main.lastSave = m["update"].Value;
 
 		parser.LoadMap (m["body"].Value);
