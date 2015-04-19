@@ -9,12 +9,6 @@ using System.Net.Security;
 
 public class GameMain : MonoBehaviour {
 	
-	//	private save saver;
-	//EditorFlagCamp flagCamp ;
-	
-	
-
-	// Use this for initialization
 	void Start () {
 		
 //		if (flagCamp == null) {

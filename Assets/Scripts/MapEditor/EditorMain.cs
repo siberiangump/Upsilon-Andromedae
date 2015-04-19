@@ -37,7 +37,7 @@ public class EditorMain : MonoBehaviour {
 		flagCamp.mapName = "not saved";
 		flagCamp.lastSave = "tomorrow";
 		flagCamp.mapId = this.GetComponent<IO> ().Create (flagCamp.mapName);
-		PlayerPrefs.SetString (PrefsDefine.editor + PrefsDefine.last_map,flagCamp.mapId);
+		PlayerPrefs.SetString (PrefsDefine.editor + PrefsDefine.current_map,flagCamp.mapId);
 	} 
 	
 

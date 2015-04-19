@@ -13,6 +13,7 @@ public class WebDBEntry : MonoBehaviour {
 
 	public WebIO req;
 	void Start () {
+		this.name = "DBProxy";
 		maps = new Dictionary<string, string>();
 		req.GET(server+prefix+"getAll",this.gameObject);
 	}
