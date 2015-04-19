@@ -36,6 +36,9 @@ public class MapJSONParser : MonoBehaviour {
 						GameObject player = new GameObject();
 						player.tag = "Player";
 						player.AddComponent<Player>().playerId = NODE.GetComponent<ObjectPreview>().playerId;
+						player.GetComponent<Player>().name = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.name);
+						player.GetComponent<Player>().color = ColorExtensions.ParseColor(PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.color));
+						player.GetComponent<Player>().avatar = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.avatar);
 					}
 				}
 			}
