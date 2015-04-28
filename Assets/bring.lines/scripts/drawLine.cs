@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (LineRenderer))]
 public class drawLine : MonoBehaviour {
 
 	public LineType type = LineType.FromTargetToTarget;
@@ -23,7 +24,6 @@ public class drawLine : MonoBehaviour {
 	public GameObject markFrom,markTo; 
 
 	void Start () {
-		lineRenderer = this.gameObject.AddComponent<LineRenderer>();
 		lineRenderer = this.gameObject.GetComponent<LineRenderer>();
 		if (material)
 			lineRenderer.material = material;

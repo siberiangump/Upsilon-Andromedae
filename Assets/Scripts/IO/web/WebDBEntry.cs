@@ -12,7 +12,13 @@ public class WebDBEntry : MonoBehaviour {
 	public Dictionary<string, string> maps;
 
 	public WebIO req;
-	void Start () {
+	void Awake () {
+		if(GameObject.FindGameObjectWithTag("MainController")){
+			if(this.transform.parent.tag!="MainController"){
+				Destroy(this.gameObject);
+				return;
+			}
+		}
 		this.name = "DBProxy";
 		maps = new Dictionary<string, string>();
 		req.GET(server+prefix+"getAll",this.gameObject);

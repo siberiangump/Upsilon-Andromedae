@@ -12,8 +12,13 @@ public class MouseHolder : MonoBehaviour {
 	
 	public bool double_click=true; 
 
-	// Update is called once per frame
+	public bool block=true;
+
 	void Update () {
+		if(!block){Move();}
+	}
+
+	public void Move(){
 		Vector3 mousePos;
 		mousePos = Input.mousePosition;
 		if (target != null) {
@@ -27,7 +32,7 @@ public class MouseHolder : MonoBehaviour {
 					//keepZ=false;
 				}else double_click=true;
 			}
-				
+			
 		}else if (Input.GetMouseButton (0)) {
 			p = this.GetComponent<Camera>().ScreenToWorldPoint (new Vector3 (mousePos.x, mousePos.y,this.transform.position.z*-1));
 			moveVector = new Vector3(startMoveVector.x-p.x,startMoveVector.y-p.y,0);
@@ -43,5 +48,13 @@ public class MouseHolder : MonoBehaviour {
 
 	public void GoToZero(){
 		this.transform.position = new Vector3 (0, 0, this.transform.position.z);
-	} 
+	}
+
+	public void Block(){
+		block=true;
+	}
+
+	public void UnBlock(){
+		block=false;
+	}
 }
