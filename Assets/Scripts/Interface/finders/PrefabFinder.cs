@@ -20,7 +20,7 @@ public class PrefabFinder : MonoBehaviour {
 			g.GetComponent<RectTransform>().localPosition = new Vector3(i*displacement+displacement/2-t.x/2,0,0);
 			PrefabSpawn ps = g.GetComponent<PrefabSpawn>();
 			ps.prefab = gmos[i];
-			ObjectPreview op = gmos[i].GetComponent<ObjectPreview>();
+			SpaceBodyModel op = gmos[i].GetComponent<SpaceBodyModel>();
 			if(op){
 				ps.image = op.image;
 				ps.Init();

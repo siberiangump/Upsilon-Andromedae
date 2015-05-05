@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -26,13 +26,18 @@ public class WebDBEntry : MonoBehaviour {
 
 	public void Response (string json){
 		Debug.Log("WWW resp: "+ json);
+		PlayerPrefs.SetString("maps backup",json);
 		parse(json);
 
 	}
 
 	public string get(string id){
-		if(maps.ContainsKey(id))return maps[id];
-		return "";
+		string value = "";
+		if(maps.Count==0){
+			parse(PlayerPrefs.GetString("maps backup"));
+		}
+		if(maps.ContainsKey(id))value = maps[id];
+		return value;
 	}
 
 	void parse(string json){

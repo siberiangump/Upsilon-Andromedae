@@ -13,14 +13,14 @@ public class EditorSpaceBodyUI : MonoBehaviour {
 	public Text capability;
 	public Text playerId;
 
-	public ObjectPreview spaceBody;
+	public SpaceBodyModel spaceBody;
 
 
 	void Start(){
 		if (!this.transform.parent) {
 			DestroyImmediate (this.gameObject);		
 		} else {
-			spaceBody = this.transform.parent.gameObject.GetComponent<ObjectPreview>();
+			spaceBody = this.transform.parent.gameObject.GetComponent<SpaceBodyModel>();
 			UpdatePlayer();
 			UpdateDevelopnet();
 			UpdateCapability();

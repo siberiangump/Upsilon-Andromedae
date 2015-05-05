@@ -6,8 +6,6 @@ public class MapJSONParser : MonoBehaviour {
 
 	public pars_type type;
 
-	public EditorFlagCamp flagCamp;
-
 	public GameObject linePrefab;
 	
 	public GameObject[] SpawnChilds;
@@ -25,20 +23,20 @@ public class MapJSONParser : MonoBehaviour {
 			GameObject NODE=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
 			NODE.transform.position=new Vector3(x,y,z);
 			NODE.name = node["name"].Value;
-			NODE.GetComponent<ObjectPreview>().capability = node["capability"].AsInt;
-			NODE.GetComponent<ObjectPreview>().development = node["development"].AsInt;
-			NODE.GetComponent<ObjectPreview>().playerId = node["playerId"].AsInt;
+			NODE.GetComponent<SpaceBodyModel>().capability = node["capability"].AsInt;
+			NODE.GetComponent<SpaceBodyModel>().development = node["development"].AsInt;
+			NODE.GetComponent<SpaceBodyModel>().playerId = node["playerId"].AsInt;
 
 			if(type == pars_type.game) {
 				NODE.AddComponent<GameSpaceBody>();
-				if(NODE.GetComponent<ObjectPreview>().playerId!=0){
-					if(PlayerAreExist(NODE.GetComponent<ObjectPreview>().playerId)){
+				if(NODE.GetComponent<SpaceBodyModel>().playerId!=0){
+					if(PlayerAreExist(NODE.GetComponent<SpaceBodyModel>().playerId)){
 						GameObject player = new GameObject();
 						player.tag = "Player";
-						player.AddComponent<Player>().playerId = NODE.GetComponent<ObjectPreview>().playerId;
+						player.AddComponent<Player>().playerId = NODE.GetComponent<SpaceBodyModel>().playerId;
 						player.GetComponent<Player>().name = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.name);
-						player.GetComponent<Player>().color = ColorExtensions.ParseColor(PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.color));
-						player.GetComponent<Player>().avatar = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.avatar);
+						player.AddComponent<PlayerModel>().color = ColorExtensions.ParseColor(PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.color));
+						player.GetComponent<PlayerModel>().avatar = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.avatar);
 					}
 				}
 			}

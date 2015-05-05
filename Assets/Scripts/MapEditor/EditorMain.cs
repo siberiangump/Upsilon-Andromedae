@@ -6,45 +6,29 @@ using System;
 using System.Net;
 using System.Net.Security;
 
-
+[RequireComponent (typeof (MapModel))]
+[RequireComponent (typeof (IO))]
 public class EditorMain : MonoBehaviour {
-
-//	private save saver;
-	EditorFlagCamp flagCamp ;
-
-
+	
 	private string prefix = "editor";
 
-	// Use this for initialization
-	void Start () {
+	MapModel map;
+	IO io;
 
-		if (flagCamp == null) {
-			flagCamp =this.GetComponent<EditorFlagCamp>();
-		}
-//		flagCamp.mapId=PlayerPrefs.GetString (PrefsDefine.editor + PrefsDefine.last_map);
-//		if (flagCamp.mapId == "") {
-//			New ();
-//		} else {
-//			LoadMap();
-//		}
-	}
-		
 	public void LoadMap(){
-		this.GetComponent<IO> ().Load ();
+
+		io.Load (map.id);
+
 	}
 
 	public void New(){
-		flagCamp.mapName = "not saved";
-		flagCamp.lastSave = "tomorrow";
-		flagCamp.mapId = this.GetComponent<IO> ().Create (flagCamp.mapName);
-		PlayerPrefs.SetString (PrefsDefine.editor + PrefsDefine.current_map,flagCamp.mapId);
+
+		map.id = io.Create (map.name);
+		map.name = io.lastName;
+		map.lastSave = io.lastSave;
+
+		PlayerPrefs.SetString (PrefsDefine.editor + PrefsDefine.current_map,map.id);
+
 	} 
-	
 
-
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PrefabSpawn : ObjectPreview {
+public class PrefabSpawn : SpaceBodyModel {
 
 	public GameObject prefab;
 
@@ -27,7 +27,7 @@ public class PrefabSpawn : ObjectPreview {
 
 		mh.target = gmo;
 
-		gmo.GetComponent<ObjectPreview> ().prefab_name = this.prefab.name;
+		gmo.GetComponent<SpaceBodyModel> ().prefab_name = this.prefab.name;
 		gmo.transform.position = new Vector3 (0,0,-20);
 		foreach (GameObject c in SpawnChilds) {
 			GameObject g = Instantiate (c,gmo.transform.position,Quaternion.identity)as GameObject;

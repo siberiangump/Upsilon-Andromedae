@@ -6,8 +6,8 @@ public class MapName : TextGraber {
 
 	public override void Grab ()
 	{
-		if (gmo.GetComponent<EditorMain> ()) {
-			text.text = gmo.GetComponent<EditorFlagCamp> ().mapName.ToUpper();
+		if (gmo.GetComponent<MapModel> ()) {
+			text.text = gmo.GetComponent<MapModel> ().name.ToUpper();
 		}
 	}
 

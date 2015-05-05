@@ -22,10 +22,10 @@ public class GameSpaceBodyUI : MonoBehaviour {
 				uiname.text = this.transform.parent.gameObject.name;
 			}
 			if (development){
-				development.text = "+" +  this.transform.parent.GetComponent<GameSpaceBody>().development.ToString();
+				development.text = "+" +  this.transform.parent.GetComponent<SpaceBodyModel>().development.ToString();
 			}
 			if (capability){
-				capability.text = this.transform.parent.GetComponent<GameSpaceBody>().capability.ToString();
+				capability.text = this.transform.parent.GetComponent<SpaceBodyModel>().capability.ToString();
 			}
 
 		}

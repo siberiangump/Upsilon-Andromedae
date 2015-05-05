@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class TextGraber : MonoBehaviour {
-
+[RequireComponent (typeof (Image))]
+public abstract class ImageGraber : MonoBehaviour {
+	
 	public GameObject gmo;
-	public Text text;
-
+	public Image image;
+	
 	// Use this for initialization
 	void Start () {
+		image = this.GetComponent<Image>();
 		CorrectTarget ();
-//		if (gmo == null) {
-//			DestroyImmediate(this.gameObject);		
-//		}
 	}
-
+	
 	public void Init(GameObject g){
 		gmo=g;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		if (!Validation ()){
@@ -25,17 +24,17 @@ public abstract class TextGraber : MonoBehaviour {
 		}
 		Grab ();
 	}
-
+	
 	public abstract void Grab ();
-
+	
 	public virtual void CorrectTarget (){
 		if (gmo == null) {
 			gmo = GameObject.FindGameObjectWithTag ("GameController");
 		}
 	}
-
+	
 	bool Validation(){
-		if (text == null) {
+		if (image == null) {
 			Debug.Log("no UI text");
 			return false;
 		}
@@ -45,5 +44,5 @@ public abstract class TextGraber : MonoBehaviour {
 		}
 		return true;
 	}
-
+	
 }

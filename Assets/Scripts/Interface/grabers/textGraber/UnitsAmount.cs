@@ -20,6 +20,7 @@ public class UnitsAmount : TextGraber {
 
 	public override void Grab (){
 		if (planet == null) {
+			planet = gmo.GetComponent<GameSpaceBody>();
 		}
 		if (planet) {
 			if (old != planet.units) {

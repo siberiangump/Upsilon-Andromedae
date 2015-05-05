@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : PlayerModel {
+[RequireComponent (typeof (PlayerModel))]
+public class Player : MonoBehaviour {
 
+	public PlayerModel model;
 	public int playerId;
-	GameObject[] own;
+	public GameObject[] own;
 		
-	// Update is called once per frame
-	void Update () {
-	
+	void Start(){
+		model = this.GetComponent<PlayerModel>();
 	}
+
 }

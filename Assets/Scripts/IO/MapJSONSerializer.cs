@@ -10,13 +10,13 @@ public static class MapJSONSerializer{
 		json+= "{\"bodies\""+":[" ;
 		foreach (GameObject nd in nodes)
 		{
-			ObjectPreview s = nd.GetComponent<ObjectPreview>();
+			SpaceBodyModel s = nd.GetComponent<SpaceBodyModel>();
 			a++;
 			json+="{\"name\":\""+nd.name+"\"," +
-				"\"prefab\":\""+nd.GetComponent<ObjectPreview>().prefab_name+"\"," +
-				"\"development\":\""+nd.GetComponent<ObjectPreview>().development+"\"," +
-				"\"capability\":\""+nd.GetComponent<ObjectPreview>().capability+"\"," +
-				"\"playerId\":\""+nd.GetComponent<ObjectPreview>().playerId+"\"," +
+				"\"prefab\":\""+nd.GetComponent<SpaceBodyModel>().prefab_name+"\"," +
+				"\"development\":\""+nd.GetComponent<SpaceBodyModel>().development+"\"," +
+				"\"capability\":\""+nd.GetComponent<SpaceBodyModel>().capability+"\"," +
+				"\"playerId\":\""+nd.GetComponent<SpaceBodyModel>().playerId+"\"," +
 				"\"position\":{\"x\":" + nd.transform.position.x +"," +
 							  "\"y\":"+nd.transform.position.y+"," +
 							  "\"z\":"+nd.transform.position.z+"}},";
