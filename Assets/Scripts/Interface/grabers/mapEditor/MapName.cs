@@ -4,10 +4,18 @@ using System.Collections;
 
 public class MapName : TextGraber {
 
+	MapModel map;
+
 	public override void Grab ()
 	{
-		if (gmo.GetComponent<MapModel> ()) {
-			text.text = gmo.GetComponent<MapModel> ().name.ToUpper();
+		if (map!=null) {
+			text.text = map.name.ToUpper();
+		}
+	}
+
+	public override void SubscribingOnChanges(){
+		if(map==null){
+			map.Subscribe(UpdateText);
 		}
 	}
 

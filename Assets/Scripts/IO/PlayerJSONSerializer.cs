@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Singletone : MonoBehaviour {
+public class PlayerJSONSerializer : MonoBehaviour {
 
 	// Use this for initialization
-	void Awake () {
-
+	void Start () {
+	
 	}
 	
 	// Update is called once per frame

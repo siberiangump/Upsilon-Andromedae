@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent (typeof (LineRenderer))]
-public class drawLine : MonoBehaviour {
+public class DrawLine : MonoBehaviour {
 
 	public LineType type = LineType.FromTargetToTarget;
 	public Transform from,to;
@@ -43,12 +43,18 @@ public class drawLine : MonoBehaviour {
 
 		material = data.m;
 		from = data.f;
+		if(markFrom!=null){
+			Destroy(markFrom);
+		}
 		markFrom = new GameObject ();
 		markFrom.transform.parent = data.f;
 		markFrom.tag = "mark";
 		markFrom.name = data.t.name;
 
 		to = data.t;
+		if(markTo!=null){
+			Destroy(markTo);
+		}
 		markTo = new GameObject ();
 		markTo.transform.parent = data.t;
 		markTo.tag = "mark";
@@ -106,6 +112,7 @@ public class drawLine : MonoBehaviour {
 		old_toColor = toColor;
 		old_material = material;
 	}
+
 	bool CheckParametrsChanged(){
 		if (from == null || to == null) {
 			GameObject.DestroyImmediate (this.gameObject);

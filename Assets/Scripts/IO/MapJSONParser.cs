@@ -20,30 +20,41 @@ public class MapJSONParser : MonoBehaviour {
 			float y = node["position"]["y"].AsFloat;
 			float z = node["position"]["z"].AsFloat;
 
-			GameObject NODE=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
-			NODE.transform.position=new Vector3(x,y,z);
-			NODE.name = node["name"].Value;
-			NODE.GetComponent<SpaceBodyModel>().capability = node["capability"].AsInt;
-			NODE.GetComponent<SpaceBodyModel>().development = node["development"].AsInt;
-			NODE.GetComponent<SpaceBodyModel>().playerId = node["playerId"].AsInt;
+			GameObject body=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
+			body.transform.position=new Vector3(x,y,z);
+			body.name = node["name"].Value;
+			SpaceBodyModel bodyModel = body.GetComponent<SpaceBodyModel>();
+			bodyModel.capability = node["capability"].AsInt;
+			bodyModel.development = node["development"].AsInt;
+			bodyModel.playerId = node["playerId"].AsInt;
 
 			if(type == pars_type.game) {
-				NODE.AddComponent<GameSpaceBody>();
-				if(NODE.GetComponent<SpaceBodyModel>().playerId!=0){
-					if(PlayerAreExist(NODE.GetComponent<SpaceBodyModel>().playerId)){
+				GameSpaceBody bodyGame = body.AddComponent<GameSpaceBody>();
+				if(bodyModel.playerId!=0){
+					if(PlayerAreExist(bodyModel.playerId)){
 						GameObject player = new GameObject();
 						player.tag = "Player";
-						player.AddComponent<Player>().playerId = NODE.GetComponent<SpaceBodyModel>().playerId;
-						player.GetComponent<Player>().name = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.name);
-						player.AddComponent<PlayerModel>().color = ColorExtensions.ParseColor(PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.color));
-						player.GetComponent<PlayerModel>().avatar = PlayerPrefs.GetString(PrefsDefine.player + 1 + PrefsDefine.avatar);
+						PlayerModel pm = player.AddComponent<PlayerModel>();					
+						PlayerModel.Clone(MatchController.Instance.model.players[bodyModel.playerId-1],pm);
+						player.name = pm.name;
+						Player p = player.AddComponent<Player>();
+						p.playerId = bodyModel.playerId;
+						p.Init();
+						bodyGame.InitOwner(p.gameObject);
+					}else {
+						GameObject p=FindPlayer(bodyModel.playerId);
+						if(p!=null){
+							bodyGame.InitOwner(p);
+						}else{
+							Debug.Log("player"+bodyModel.playerId+" can't be found");
+						} 
 					}
 				}
 			}
 
 			foreach (GameObject c in SpawnChilds) {
-				GameObject g = Instantiate (c,NODE.transform.position,Quaternion.identity)as GameObject;
-				g.transform.parent = NODE.transform;
+				GameObject g = Instantiate (c,body.transform.position,Quaternion.identity)as GameObject;
+				g.transform.parent = body.transform;
 				g.GetComponent<RectTransform>().Rotate(0,180,0);
 			}
 
@@ -54,7 +65,8 @@ public class MapJSONParser : MonoBehaviour {
 			GameObject f =GameObject.Find(transition["from"]);
 			GameObject t =GameObject.Find(transition["to"]);
 			GameObject l = Instantiate(linePrefab,f.transform.position,Quaternion.identity) as GameObject;
-			l.GetComponent<drawLine>().Init(new LineParametrData(f.transform,t.transform));
+			l.GetComponent<DrawLine>().Init(new LineParametrData(f.transform,t.transform));
+
 		}
 		
 	}
@@ -66,6 +78,18 @@ public class MapJSONParser : MonoBehaviour {
 			Player player = gmo.GetComponent<Player>();
 			if(player && player.playerId == playerId){
 				needNewPlayer = false;
+			}
+		}
+		return needNewPlayer;
+	}
+
+	GameObject FindPlayer (int playerId){
+		GameObject needNewPlayer = null;
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach(GameObject gmo in players){
+			Player player = gmo.GetComponent<Player>();
+			if(player != null && player.playerId == playerId){
+				needNewPlayer = gmo;
 			}
 		}
 		return needNewPlayer;

@@ -42,8 +42,14 @@ public class WebDBEntry : MonoBehaviour {
 
 	void parse(string json){
 		var nodes = JSON.Parse(json);
+
 		foreach(var m in nodes.Childs){
-			maps.Add(m["_id"].Value,m.ToString());
+			string value;
+			if(maps.TryGetValue(m["_id"].Value,out value)){
+				maps[m["_id"].Value] = m.ToString();
+			}else{
+				maps.Add(m["_id"].Value,m.ToString());
+			}
 		}
 	} 
 }

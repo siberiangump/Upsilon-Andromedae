@@ -6,12 +6,26 @@ public class GamePlayerUI : MonoBehaviour {
 	public Player player;
 	public List spaceBodyList; 
 
+	void Start(){
+		if(player==null){
+			if(GameMain.Instance==null){
+				return;
+			}
+			Init(GameMain.ScreenOwner);
+		}
+	}
+
 	public void Init(GameObject player){
 		this.player = player.GetComponent<Player>();
+		if(this.player == null){
+			this.player = GameObject.Find(player.GetComponent<PlayerModel>().name).GetComponent<Player>();
+		}
 		if(spaceBodyList == null){
 			spaceBodyList = this.transform.GetComponentInChildren<List>();
 		}
-		if(Validation());
+		if(Validation()){
+			Draw();
+		}
 	}
 
 	[ContextMenu ("Draw")]

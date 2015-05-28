@@ -9,6 +9,16 @@ public class IO : MonoBehaviour {
 	public WebDBEntry dbProxy;
 	public WebDBSaver dbSaver;
 
+	private static IO instance;
+	public static IO Instance{
+		get{
+			if(instance==null){
+				instance = GameObject.FindObjectOfType<IO>();
+			}
+			return instance;
+		}
+	}
+
 	//last save data
 	public string lastName;
 	public string lastSave;
@@ -40,7 +50,16 @@ public class IO : MonoBehaviour {
 			lastName = name;
 		}
 	}
-	
+
+	public void GetMapData(string id, MapModel mapOut){
+		string save = dbProxy.get (id);
+		var m = JSON.Parse(save);
+		mapOut.name = m["name"].Value;
+		mapOut.lastSave = m["update"].Value;
+		mapOut.id = id;
+		mapOut.json = m["body"].Value;
+	}
+
 	public void Load(string id){
 		if(!Validation()){return;};
 

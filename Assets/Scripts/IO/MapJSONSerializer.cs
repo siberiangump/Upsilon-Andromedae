@@ -28,7 +28,8 @@ public static class MapJSONSerializer{
 		foreach (GameObject trns in transitions)
 		{
 			a++;
-			json+="{\"name\":\""+trns.name+"\",\"from\":" + trns.GetComponent<drawLine>().from.name+",\"to\":"+trns.GetComponent<drawLine>().to.name+"},";
+
+			json+="{\"name\":\""+trns.name+"\",\"from\":" + trns.GetComponent<DrawLine>().from.name+",\"to\":"+trns.GetComponent<DrawLine>().to.name+"},";
 		}
 		if(a>0)json=json.Substring(0,json.Length-1);
 		json+="]}";

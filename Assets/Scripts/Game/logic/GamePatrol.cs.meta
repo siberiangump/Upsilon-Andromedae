@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 854c5d97a66491947ad08ca36e01f227
+timeCreated: 1432735983
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - unitPrefab: {fileID: 187348, guid: 01ed3d3964c45e041a900d3fc26cd6d6, type: 2}
+  - fromSpaceBody: {instanceID: 0}
+  - toSpaceBody: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

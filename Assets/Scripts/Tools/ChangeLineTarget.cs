@@ -9,12 +9,12 @@ public class ChangeLineTarget : MonoBehaviour {
 			if(double_click){
 				GameObject gmo = GameObject.Find (PlayerPrefs.GetString ("SelectedBody")) as GameObject;
 				if (gmo) {
-					this.GetComponent<drawLine> ().to = gmo.transform;
+					this.GetComponent<DrawLine> ().to = gmo.transform;
 					GameObject.Destroy (this);
 				} else {
 					GameObject.Destroy (this.gameObject);
 				}
-				if(this.GetComponent<drawLine> ().from==gmo.transform){
+				if(this.GetComponent<DrawLine> ().from==gmo.transform){
 					GameObject.Destroy (this.gameObject);
 				}
 				Destroy(this);

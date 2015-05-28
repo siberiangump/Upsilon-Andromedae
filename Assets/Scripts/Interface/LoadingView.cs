@@ -17,4 +17,5 @@ public class LoadingView : MonoBehaviour {
 	public void PlayerReady(){
 		a.SetTrigger("ready");
 	}
+	
 }

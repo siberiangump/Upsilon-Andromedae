@@ -4,10 +4,21 @@
 	public static string game = "game";
 	public static string current_map = "current_map";
 
-	public static string player = "player_with_id";
+	public static string player = "player_json";
 
-	public static string name = "user_name";
-	public static string color = "user_colour";
-	public static string avatar = "user_avatar";
+}
+
+public static class EventDefine {
+
+	public static string play = "play";
+	public static string pause = "pause";
+	public static string over = "over";
+
+	//
+	public static string space_body_selected = "space_body_selected";
+	public static string space_body_unselected = "space_body_unselected";
+	public static string space_body_selected_as_target = "space_body_selected_as_target";
+
+
 
 }

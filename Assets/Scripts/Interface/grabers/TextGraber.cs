@@ -9,17 +9,15 @@ public abstract class TextGraber : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CorrectTarget ();
-//		if (gmo == null) {
-//			DestroyImmediate(this.gameObject);		
-//		}
+		SubscribingOnChanges();
 	}
 
 	public void Init(GameObject g){
 		gmo=g;
+		SubscribingOnChanges();
 	}
 
-	// Update is called once per frame
-	void Update () {
+	public void UpdateText () {
 		if (!Validation ()){
 			return;		
 		}
@@ -27,6 +25,8 @@ public abstract class TextGraber : MonoBehaviour {
 	}
 
 	public abstract void Grab ();
+
+	public abstract void SubscribingOnChanges();
 
 	public virtual void CorrectTarget (){
 		if (gmo == null) {
@@ -45,5 +45,4 @@ public abstract class TextGraber : MonoBehaviour {
 		}
 		return true;
 	}
-
 }
