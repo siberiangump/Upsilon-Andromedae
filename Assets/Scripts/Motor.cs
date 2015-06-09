@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class Motor : MonoBehaviour {
 	
-	
+	public ZPosition z=ZPosition.static_z;
 	public float speed = 10.0F;
 	public float dex = 2;
 	public GameObject childSprite;
 	GameObject pointer;
 	public GameObject target=null;
+	public UnityAction OnTargetReached;
+
+
 	// Use this for initialization
 	void Start () {
-		target = null;
+//		target = null;
 	}
 	
 	public void init(float speed,float dex,int mass){
@@ -20,15 +24,13 @@ public class Motor : MonoBehaviour {
 	} 
 	
 	void Update() {
-		if(target==null){
-//			moveViaController();
-		}else{
+		if(target!=null){
 			moveViaTarget();
 		}
 	}
 
 	public void GoTo(GameObject target){
-
+		this.target = target;
 	}
 
 	//	public void goTo(string gmoName){
@@ -60,7 +62,12 @@ public class Motor : MonoBehaviour {
 		float x1 = target.transform.position.x-this.transform.position.x;
 		
 		transform.Translate (new Vector3(1,0,0).normalized  * Time.deltaTime * speed);
-		
+		if(z == ZPosition.non_static_z){
+			Vector3 zVector = new Vector3(0,0,(target.transform.position.z - this.transform.position.z) * Time.deltaTime * speed);
+			this.transform.position += zVector;
+		}
+
+
 		float rot_z = Mathf.Atan2 (y1, x1) * Mathf.Rad2Deg;
 		if (rot_z < 0) rot_z = 360 + rot_z;
 		float this_z = this.transform.rotation.eulerAngles.z;
@@ -71,13 +78,14 @@ public class Motor : MonoBehaviour {
 			transform.Rotate (new Vector3 (0, 0, 90) * Time.deltaTime * dex, Space.World);
 		}
 		if(Vector3.Distance(this.transform.position,target.transform.position)<0.5f){
-			//goToTarget.BroadcastMessage("OnPlayerTouch");
-			target=null;
-		}
-		float y = Input.GetAxis ("Vertical") * speed;
-		float x = Input.GetAxis ("Horizontal") * speed;
-		if(x > 0 || y > 0){
+			if( OnTargetReached != null){
+				OnTargetReached();
+				Destroy(this.gameObject);
+				return;
+			}
 			target=null;
 		}
 	}
+
+	public enum ZPosition {static_z, non_static_z};
 }

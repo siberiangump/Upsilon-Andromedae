@@ -1,30 +1,20 @@
-﻿
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using SimpleJSON;
 
-public class IO : MonoBehaviour {
+public class IO : Singleton<IO> {
 
 	public WebDBEntry dbProxy;
 	public WebDBSaver dbSaver;
-
-	private static IO instance;
-	public static IO Instance{
-		get{
-			if(instance==null){
-				instance = GameObject.FindObjectOfType<IO>();
-			}
-			return instance;
-		}
-	}
 
 	//last save data
 	public string lastName;
 	public string lastSave;
 	public string lastId;
 
-	void Awake(){
+	protected override void OnSingletonAwake(){
 		if(dbProxy == null) {
 			dbProxy = GameObject.Find("DBProxy").GetComponent<WebDBEntry>();
 		}
@@ -38,6 +28,7 @@ public class IO : MonoBehaviour {
 		return "";
 	}
 
+	[ContextMenu ("save")] 
 	public void Save(){
 		if (lastName != "") {
 			dbSaver.create (lastName, MapJSONSerializer.GetSaveString());

@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventManager : MonoBehaviour {
+public class EventManager : Singleton<EventManager> {
 
 	//for monitoring in editor
 	public string[] declareted;
@@ -16,25 +16,10 @@ public class EventManager : MonoBehaviour {
 
 	//Dictionary <string,UnityEvent> dictionary; 
 
-	private static EventManager instance;
-	public static EventManager Instance{
-		get{
-			if(instance==null){
-				instance = GameObject.FindObjectOfType<EventManager>();
-				if(instance==null){
-					GameObject gmo = new GameObject();
-					instance = gmo.AddComponent<EventManager>();
-					gmo.name = "EventManager";
-				}
-			}
-			return instance;
-		}
-	}
-
-	void Awake(){
+  	protected override void OnSingletonAwake(){
 		dictionary = new Dictionary<string,UnityEvent>();
 		dictionaryWithGameObject = new Dictionary<string,UnityEventWithGameObject>();
-		declareted = new string[0]; 
+		declareted = new string[0];
 	}
 
 	public void Subscribe(string eventName, UnityAction action){

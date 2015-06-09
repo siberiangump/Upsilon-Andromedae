@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using SimpleJSON;
@@ -41,7 +41,7 @@ public class PlayerModel : EventEmiter {
 		result.ChangePlayerModelProperty(
 			nodes["name"].Value,
 			nodes["avatar"].AsInt,
-			ColorExtensions.ParseColor(nodes["color"].Value.Replace("|",",")));
+			ColorTool.ParseColor(nodes["color"].Value.Replace("|",",")));
 		//result.name = nodes["name"].Value;
 		//result.color = ColorExtensions.ParseColor(nodes["color"].Value.Replace("|",","));
 		//result.avatar = nodes["avatar"].AsInt;

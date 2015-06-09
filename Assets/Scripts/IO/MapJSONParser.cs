@@ -5,15 +5,22 @@ using System.Collections;
 public class MapJSONParser : MonoBehaviour {
 
 	public pars_type type;
-
+	
 	public GameObject linePrefab;
+
+	public GameObject mapHolder;
 	
 	public GameObject[] SpawnChilds;
 
 	public void LoadMap(string json){
 		var map = JSON.Parse(json);
 		var nodes = map["bodies"]; //access object member
-		
+		if(mapHolder==null){
+			mapHolder = new GameObject();
+			mapHolder.transform.position = Vector3.zero; 
+			mapHolder.name = "Map";
+		}
+
 		foreach (var node in nodes.Childs){
 			
 			float x = node["position"]["x"].AsFloat;
@@ -22,6 +29,7 @@ public class MapJSONParser : MonoBehaviour {
 
 			GameObject body=(GameObject) Instantiate(Resources.Load("Prefabs/planets/"+node["prefab"].Value));
 			body.transform.position=new Vector3(x,y,z);
+			body.transform.parent = mapHolder.transform;
 			body.name = node["name"].Value;
 			SpaceBodyModel bodyModel = body.GetComponent<SpaceBodyModel>();
 			bodyModel.capability = node["capability"].AsInt;
@@ -65,6 +73,7 @@ public class MapJSONParser : MonoBehaviour {
 			GameObject f =GameObject.Find(transition["from"]);
 			GameObject t =GameObject.Find(transition["to"]);
 			GameObject l = Instantiate(linePrefab,f.transform.position,Quaternion.identity) as GameObject;
+			l.transform.parent = mapHolder.transform;
 			l.GetComponent<DrawLine>().Init(new LineParametrData(f.transform,t.transform));
 
 		}

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof (LineRenderer))]
@@ -63,6 +63,7 @@ public class DrawLine : MonoBehaviour {
 		fromColor = data.fc;
 		toColor = data.tc;
 		init = true;
+		this.name = data.f.name + "-" + data.t.name;
 		UpdateOldParametrs ();
 
 	}
@@ -111,6 +112,24 @@ public class DrawLine : MonoBehaviour {
 		old_fromColor = fromColor;
 		old_toColor = toColor;
 		old_material = material;
+
+		if(markFrom!=null){
+			Destroy(markFrom);
+		}
+		markFrom = new GameObject ();
+		markFrom.transform.parent = from;
+		markFrom.tag = "mark";
+		markFrom.name = to.name;
+
+		if(markTo!=null){
+			Destroy(markTo);
+		}
+		markTo = new GameObject ();
+		markTo.transform.parent = to;
+		markTo.tag = "mark";
+		markTo.name = from.name; 
+
+		this.name = from.name + "-" + to.name;
 	}
 
 	bool CheckParametrsChanged(){
@@ -120,12 +139,14 @@ public class DrawLine : MonoBehaviour {
 			return false;	
 		}
 		if (old_type != type ||
-		    old_from != from ||
-		    old_to != to ||
+		    old_from.gameObject.GetInstanceID() != from.gameObject.GetInstanceID() ||
+		    old_to.gameObject.GetInstanceID() != to.gameObject.GetInstanceID() ||
 		    old_fromColor != fromColor ||
 		    old_toColor != toColor ||
-		    old_material != material)
+		    old_material != material){
 			return true;
+		}
+			
 		return false;
 	}
 

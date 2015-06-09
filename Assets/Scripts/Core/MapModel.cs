@@ -6,7 +6,7 @@ public class MapModel: EventEmiter {
 	public string name = "m28";
 	public string lastSave = "test";
 	public string id = "";
-	[HideInInspector]
+	//[HideInInspector]
 	public string json = "";
 
 }

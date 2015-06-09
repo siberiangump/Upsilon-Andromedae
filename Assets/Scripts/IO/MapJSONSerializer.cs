@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public static class MapJSONSerializer{
@@ -10,7 +10,7 @@ public static class MapJSONSerializer{
 		json+= "{\"bodies\""+":[" ;
 		foreach (GameObject nd in nodes)
 		{
-			SpaceBodyModel s = nd.GetComponent<SpaceBodyModel>();
+//			SpaceBodyModel s = nd.GetComponent<SpaceBodyModel>();
 			a++;
 			json+="{\"name\":\""+nd.name+"\"," +
 				"\"prefab\":\""+nd.GetComponent<SpaceBodyModel>().prefab_name+"\"," +
@@ -28,7 +28,6 @@ public static class MapJSONSerializer{
 		foreach (GameObject trns in transitions)
 		{
 			a++;
-
 			json+="{\"name\":\""+trns.name+"\",\"from\":" + trns.GetComponent<DrawLine>().from.name+",\"to\":"+trns.GetComponent<DrawLine>().to.name+"},";
 		}
 		if(a>0)json=json.Substring(0,json.Length-1);

@@ -17,7 +17,7 @@ public class GameConnectionLine : MonoBehaviour {
 	void EventsSubscriptions(){
 		EventManager.Instance.Subscribe(EventDefine.space_body_selected,OnSpaceBodySelected);
 		EventManager.Instance.Subscribe(EventDefine.space_body_unselected,OnSpaceBodyUnselected);
-		EventManager.Instance.Subscribe(EventDefine.space_body_selected_as_target,OnSpaceBodyUnselected);
+		//EventManager.Instance.Subscribe(EventDefine.space_body_selected_as_target,OnSpaceBodyUnselected);
 	}
 
 	bool Validation(){

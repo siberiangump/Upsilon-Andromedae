@@ -1,29 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof (IO))]
 [RequireComponent (typeof (MapModel))]
 [RequireComponent (typeof (PlayerModel))]
-public class GameMain : MonoBehaviour {
+public class GameMain : Singleton<GameMain> {
 	
 	MapModel map;
 	IO io;
 	PlayerModel player;
-
-	private static GameMain instance;
-	public static GameMain Instance{
-		get{
-			if(instance==null){
-				instance = GameObject.FindObjectOfType<GameMain>();
-				if(instance == null){
-					GameObject gmo =  Instantiate(Resources.Load("prefabs/editor_prefs/MainController")) as GameObject;
-					instance = gmo.GetComponent<GameMain>();
-					instance.name ="MainContreller";
-				}
-			}
-			return instance;
-		}
-	}
 
 	public static GameObject testMain;
 
@@ -37,7 +22,7 @@ public class GameMain : MonoBehaviour {
 		}
 	}
 
-	void Awake(){
+	protected override void OnSingletonAwake(){
 		map = this.GetComponent<MapModel>();
 		io = this.transform.GetComponentInChildren<IO>();
 		player = this.GetComponent<PlayerModel>();

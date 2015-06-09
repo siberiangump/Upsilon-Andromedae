@@ -2,31 +2,25 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Config:MonoBehaviour {
-
-	private static Config instance;
-	public static Config Instance{
-		get{
-			if(instance==null){
-				instance = GameObject.FindObjectOfType<Config>();
-				if(instance==null){
-					GameObject gmo = new GameObject();
-					instance = gmo.AddComponent<Config>();
-					gmo.name = "Config";
-				}
-			}
-			return instance;
-		}
-	}
-
+public class Config:Singleton<Config>{
+	
 	public Sprite[] avatars;
 
-	//space body v
-	public int noOwnerSpaceBodyCounterCooldown = 2;
-	public int haveOwnerSpaceBodyCounterCooldown = 1;
+	//time
+	public int dayTimeInSeconds = 1;
+
+	
+	public byte haveOwnerSpaceBodyCounterCooldown = 1;
+	public byte noOwnerSpaceBodyCounterCooldown = 2;
+
 
 	//line colors
 	public Color attack = new Color(1,.5f,.5f,.5f);
 	public Color regroup = new Color(.5f,1,.5f,.5f);
 	public Color nonactive = new Color(1,1,1,.5f);
+
+	//prefabs 
+	public GameObject patrol;
+	public GameObject ship;
+
 }

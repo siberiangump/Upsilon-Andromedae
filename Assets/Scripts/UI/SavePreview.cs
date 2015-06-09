@@ -5,7 +5,7 @@ using System.Collections;
 public class SavePreview : MonoBehaviour {
 
 	public Sprite image;
-	public string name;
+	public string savePreviewName;
 	public string date;
 	[HideInInspector]
 	public string id;

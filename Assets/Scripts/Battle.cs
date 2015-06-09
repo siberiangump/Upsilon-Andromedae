@@ -1,15 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
-public class Battle : MonoBehaviour {
+public class Battle : Singleton<Battle> {
 
-	// Use this for initialization
-	void Start () {
-	
+	public void Fight(int attakers,int defenders, UnityAction<int> Callback){
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

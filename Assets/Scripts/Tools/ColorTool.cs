@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class ColorExtensions {
+public static class ColorTool {
 	public static Color ParseColor (string col) {
 		//Takes strings formatted with numbers and no spaces before or after the commas:
 		// "1.0,1.0,.35,1.0"
